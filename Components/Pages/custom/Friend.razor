@@ -1,0 +1,51 @@
+@page "/friend"
+@rendermode InteractiveServer
+@using System;
+@using System.ComponentModel.DataAnnotations;
+<!--h3>FriendEditor</h3>
+
+<EditForm Model="Friend" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mb-2">
+        <label for="name">Name:</label>
+        <ValidationMessage For="@(()=>Friend.Name)" />
+        <InputText @bind-Value="Friend.Name" class="form-control" id="name" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <label for="score">Score:</label>
+        <ValidationMessage For="@(()=>Friend.Score)" />
+        <InputNumber @bind-Value="Friend.Score" class="form-control" id="score" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <label for="birthDate">BirthDate:</label>
+        <ValidationMessage For="@(()=>Friend.BirthDate)" />
+        <InputDate @bind-Value="Friend.BirthDate" class="form-control" id="birthDate" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+@code {
+    private FriendViewModel Friend = new();
+
+    private async Task Save()
+    {
+        
+        await Task.Delay(1000);
+        Friend = new FriendViewModel();
+    }
+
+    public class FriendViewModel
+    {
+        [Required(ErrorMessage = "El nombre es obligatorio")]
+        public string Name { get; set; }
+        [Range(0, 10, ErrorMessage = "La puntuación debe estar entre {1} y {2}")]
+        public int Score { get; set; }
+        public DateTime BirthDate { get; set; }
+    }
+}-->

@@ -1,0 +1,61 @@
+@page "/contact"
+@rendermode InteractiveServer
+@using System;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Contact Form</h3>
+<EditForm Model="contact" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group mb-2">
+        <label for="name">Name:</label>
+        <ValidationMessage For="@(()=>contact.Name)" />
+        <InputText @bind-Value="contact.Name" class="form-control" id="name" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <label for="email">Email:</label>
+        <ValidationMessage For="@(()=>contact.Email)" />
+        <InputText @bind-Value="contact.Email" class="form-control" id="email" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <label for="message">Message:</label>
+        <ValidationMessage For="@(()=>contact.Message)" />
+        <InputTextArea @bind-Value="contact.Message" class="form-control" id="message" />
+        <br/>
+    </div>
+    <div class="form-group mb-2">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+@code {
+    private ContactModel contact = new();
+
+    private async Task Save()
+    {
+        
+        await Task.Delay(1000);
+        contact = new ContactModel();
+    }
+
+    public class ContactModel
+    {
+        [Required]
+        [StringLength(25,
+        ErrorMessage = "El nombre es obligatorio y con un maximo de 50 caracteres")]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Por favor introduzca un email valido")]
+        public string Email { get; set; }
+
+
+        [Required]
+        [StringLength(200,
+        ErrorMessage = "El mensaje es obligatorio y con un maximo de 200 caracteres")]
+        public string Message { get; set; }
+
+    }
+}
